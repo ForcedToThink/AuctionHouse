@@ -1,7 +1,9 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace AuctionHouse.WebApi.Configuraion
 {
@@ -25,6 +27,19 @@ namespace AuctionHouse.WebApi.Configuraion
                     Title = "Auction House API",
                     Description = "Auction House API"
                 });
+                var security = new Dictionary<string, IEnumerable<string>>
+                {
+                    {"Bearer", new string[] { }},
+                };
+
+                c.AddSecurityDefinition("Bearer", new ApiKeyScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                    Name = "Authorization",
+                    In = "header",
+                    Type = "apiKey"
+                });
+                c.AddSecurityRequirement(security);
                 c.OrderActionsBy(apiDesc => $"{apiDesc.GroupName}_{apiDesc.HttpMethod}");
                 c.IncludeXmlComments(GetXmlCommentsPath());
             });
@@ -40,7 +55,10 @@ namespace AuctionHouse.WebApi.Configuraion
         public static IApplicationBuilder UseSwaggerConfiguration(this IApplicationBuilder app)
         {
             app.UseSwagger();
-            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Auction House v1"); });
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Auction House v1");
+            });
             return app;
         }
 

@@ -63,51 +63,18 @@ namespace AuctionHouse.WebApi.Controllers
         }
 
         /// <summary>
-        ///     Create user.
+        ///     Get current user.
         /// </summary>
-        /// <remarks>Creates new user.</remarks>
-        /// <param name="user">The user view model.</param>
+        /// <remarks>Gets currently logged in user.</remarks>
         /// <returns></returns>
-        [HttpPost]
-        [ProducesResponseType(200)]
+        [HttpGet("current")]
+        [ProducesResponseType(typeof(UserDetailsViewModel), 200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public IActionResult Create([FromBody] UserViewModel user)
+        public IActionResult GetCurrent()
         {
-            _userService.CreateUser(user);
-            return Ok();
-        }
-
-        /// <summary>
-        ///     Update user.
-        /// </summary>
-        /// <remarks>Updates existing user.</remarks>
-        /// <param name="user">The user view model.</param>
-        /// <returns></returns>
-        [HttpPut]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(500)]
-        public IActionResult Update([FromBody] UserViewModel user)
-        {
-            _userService.UpdateUser(user);
-            return Ok();
-        }
-
-        /// <summary>
-        ///     Delete user.
-        /// </summary>
-        /// <remarks>Deletes existing user.</remarks>
-        /// <param name="id">The user identifier.</param>
-        /// <returns></returns>
-        [HttpDelete("{id}")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(500)]
-        public IActionResult Delete(int id)
-        {
-            _userService.DeleteUser(id);
-            return Ok();
+            var user = _userService.GetByLogin(User.Identity.Name);
+            return Ok(user);
         }
         #endregion
     }

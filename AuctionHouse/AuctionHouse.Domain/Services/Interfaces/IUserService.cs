@@ -38,5 +38,19 @@ namespace AuctionHouse.Domain.Services.Interfaces
         /// </summary>
         /// <param name="id">The user identifer.</param>
         void DeleteUser(int id);
+
+        /// <summary>
+        ///     Register new user.
+        /// </summary>
+        /// <param name="registerViewModel">The register user view model.</param>
+        void RegisterUser(RegisterViewModel registerViewModel);
+
+        /// <summary>
+        ///     Gets the user by the login and password.
+        /// </summary>
+        /// <param name="login">The user login.</param>
+        /// <param name="plainPassword">The user password.</param>
+        /// <returns></returns>
+        UserDetailsViewModel GetByLoginAndPassword(string login, string plainPassword);
     }
 }

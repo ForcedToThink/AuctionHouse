@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using AuctionHouse.DataAccess.Configurations;
 using AuctionHouse.DataAccess.Repository.Interfaces;
 using AuctionHouse.Domain.Services.Interfaces;
@@ -118,7 +121,61 @@ namespace AuctionHouse.Domain.Services.Implementation
                 _userRepository.SaveChanges();
             }
         }
-        
+
+        public void RegisterUser(RegisterViewModel registerViewModel)
+        {
+            var user = _userRepository.GetByLogin(registerViewModel.Login);
+            if (user != null)
+            {
+                throw new InvalidOperationException("Given login already exists in database.");
+            }
+
+            var newUser = new User
+            {
+                Login = registerViewModel.Login,
+                PasswordHash = GetHashString(registerViewModel.Password),
+                FirstName = registerViewModel.FirstName,
+                LastName = registerViewModel.LastName
+            };
+
+            _userRepository.Create(newUser);
+            _userRepository.SaveChanges();
+        }
+
+        public UserDetailsViewModel GetByLoginAndPassword(string login, string plainPassword)
+        {
+            var user = _userRepository.GetByLogin(login);
+            if (user != null && user.PasswordHash == GetHashString(plainPassword))
+            {
+                return new UserDetailsViewModel
+                {
+                    Id = user.Id,
+                    Login = user.Login,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName
+                };
+            }
+
+            return null;
+        }
+
+        #endregion
+
+        #region Private Methods
+        public static byte[] GetHash(string inputString)
+        {
+            HashAlgorithm algorithm = MD5.Create();  //or use SHA256.Create();
+            return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
+        }
+
+        public static string GetHashString(string inputString)
+        {
+            var sb = new StringBuilder();
+            foreach (var b in GetHash(inputString))
+                sb.Append(b.ToString("X2"));
+
+            return sb.ToString();
+        }
         #endregion
     }
 }
