@@ -11,6 +11,12 @@ namespace AuctionHouse.WebApi.Configuraion
     /// </summary>
     public static class Authentication
     {
+        /// <summary>
+        ///     Add JWT Authentication configuration to application service collection.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configuration">The configuration</param>
+        /// <returns></returns>
         public static IServiceCollection AddJwtAuthentication(this IServiceCollection services,
             IConfiguration configuration)
         {

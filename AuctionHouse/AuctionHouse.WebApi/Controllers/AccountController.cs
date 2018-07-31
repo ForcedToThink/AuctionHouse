@@ -59,7 +59,7 @@ namespace AuctionHouse.WebApi.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
         }
 

@@ -8,15 +8,35 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace AuctionHouse.WebApi.Utils.Implementation
 {
+    /// <summary>
+    ///     The JWT manager
+    /// </summary>
     public class TokenManager : ITokenManager
     {
+        #region Members
+        /// <summary>
+        ///     The configuration.
+        /// </summary>
         private readonly IConfiguration _configuration;
+        #endregion
 
+        #region Constructors
+        /// <summary>
+        ///     Creates an instance of <see cref="TokenManager"/>
+        /// </summary>
+        /// <param name="configuration"></param>
         public TokenManager(IConfiguration configuration)
         {
             _configuration = configuration;
         }
+        #endregion
 
+        #region Implementation of ITokenManager
+        /// <summary>
+        ///     Generates a new token for the given login.
+        /// </summary>
+        /// <param name="login">The user login.</param>
+        /// <returns>Authentication token.</returns>
         public string GetToken(string login)
         {
             var claims = new[]
@@ -36,5 +56,6 @@ namespace AuctionHouse.WebApi.Utils.Implementation
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+        #endregion
     }
 }

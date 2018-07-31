@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using AuctionHouse.DataAccess.Configurations;
 using AuctionHouse.DataAccess.Repository.Interfaces;
 using AuctionHouse.Domain.Services.Interfaces;
 using AuctionHouse.Model.DataModel;
@@ -75,53 +74,9 @@ namespace AuctionHouse.Domain.Services.Implementation
         }
 
         /// <summary>
-        ///     Creates new user.
+        ///     Register new user.
         /// </summary>
-        /// <param name="userViewModel">The user view model.</param>
-        public void CreateUser(UserViewModel userViewModel)
-        {
-            var user = new User
-            {
-                Id = userViewModel.Id,
-                Login = userViewModel.Login,
-                FirstName = userViewModel.FirstName,
-                LastName = userViewModel.LastName
-            };
-            _userRepository.Create(user);
-            _userRepository.SaveChanges();
-        }
-
-        /// <summary>
-        ///     Updates the user.
-        /// </summary>
-        /// <param name="userViewModel">The user view model.</param>
-        public void UpdateUser(UserViewModel userViewModel)
-        {
-            var user = _userRepository.Get(userViewModel.Id);
-            if (user != null)
-            {
-                user.Login = userViewModel.Login;
-                user.FirstName = userViewModel.FirstName;
-                user.LastName = userViewModel.LastName;
-                _userRepository.Update(user);
-                _userRepository.SaveChanges();
-            }
-        }
-
-        /// <summary>
-        ///     Deletes the user.
-        /// </summary>
-        /// <param name="id">The user identifier.</param>
-        public void DeleteUser(int id)
-        {
-            var user = _userRepository.Get(id);
-            if (user != null)
-            {
-                _userRepository.Delete(user);
-                _userRepository.SaveChanges();
-            }
-        }
-
+        /// <param name="registerViewModel">The register user view model.</param>
         public void RegisterUser(RegisterViewModel registerViewModel)
         {
             var user = _userRepository.GetByLogin(registerViewModel.Login);
@@ -142,6 +97,12 @@ namespace AuctionHouse.Domain.Services.Implementation
             _userRepository.SaveChanges();
         }
 
+        /// <summary>
+        ///     Gets the user by the login and password.
+        /// </summary>
+        /// <param name="login">The user login.</param>
+        /// <param name="plainPassword">The user password.</param>
+        /// <returns></returns>
         public UserDetailsViewModel GetByLoginAndPassword(string login, string plainPassword)
         {
             var user = _userRepository.GetByLogin(login);

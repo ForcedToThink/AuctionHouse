@@ -22,24 +22,6 @@ namespace AuctionHouse.Domain.Services.Interfaces
         List<UserDetailsViewModel> GetAllUsers();
 
         /// <summary>
-        ///     Creates new user.
-        /// </summary>
-        /// <param name="userViewModel">The user view model.</param>
-        void CreateUser(UserViewModel userViewModel);
-
-        /// <summary>
-        ///     Updates the user.
-        /// </summary>
-        /// <param name="userViewModel">The user view model.</param>
-        void UpdateUser(UserViewModel userViewModel);
-
-        /// <summary>
-        ///     Deletes the user.
-        /// </summary>
-        /// <param name="id">The user identifer.</param>
-        void DeleteUser(int id);
-
-        /// <summary>
         ///     Register new user.
         /// </summary>
         /// <param name="registerViewModel">The register user view model.</param>

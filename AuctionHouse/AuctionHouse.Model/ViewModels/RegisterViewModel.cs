@@ -1,5 +1,8 @@
 ﻿namespace AuctionHouse.Model.ViewModels
 {
+    /// <summary>
+    ///     The registration view model.
+    /// </summary>
     public class RegisterViewModel
     {
         /// <summary>
