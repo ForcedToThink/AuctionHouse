@@ -17,6 +17,8 @@ namespace AuctionHouse.DataAccess.Configurations
         {
             builder.Property(x => x.Id).IsRequired();
             builder.Property(x => x.Login).IsRequired();
+            builder.Property(x => x.FirstName).IsRequired();
+            builder.Property(x => x.LastName).IsRequired();
 
             builder.HasKey(x => x.Id);
         }

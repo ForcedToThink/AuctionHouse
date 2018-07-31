@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AuctionHouse.DataAccess.Configurations;
 using AuctionHouse.DataAccess.Repository.Interfaces;
 using AuctionHouse.Domain.Services.Interfaces;
 using AuctionHouse.Model.DataModel;
@@ -35,23 +36,37 @@ namespace AuctionHouse.Domain.Services.Implementation
         ///     Gets user by the login.
         /// </summary>
         /// <param name="login">The user login.</param>
-        /// <returns>User view model.</returns>
-        public UserViewModel GetByLogin(string login)
+        /// <returns>User details view model.</returns>
+        public UserDetailsViewModel GetByLogin(string login)
         {
             var user = _userRepository.GetAll()
                 .SingleOrDefault(u => u.Login.ToLowerInvariant().Equals(login.ToLowerInvariant()));
 
-            return user == null ? null : new UserViewModel {Id = user.Id, Login = user.Login};
+            return user == null
+                ? null
+                : new UserDetailsViewModel
+                {
+                    Id = user.Id,
+                    Login = user.Login,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName
+                };
         }
 
         /// <summary>
         ///     Gets all users.
         /// </summary>
-        /// <returns>The list of User view models.</returns>
-        public List<UserViewModel> GetAllUsers()
+        /// <returns>The list of User details view models.</returns>
+        public List<UserDetailsViewModel> GetAllUsers()
         {
             var users = _userRepository.GetAll().ToList();
-            var result = users.Select(u => new UserViewModel {Id = u.Id, Login = u.Login});
+            var result = users.Select(u => new UserDetailsViewModel
+            {
+                Id = u.Id,
+                Login = u.Login,
+                FirstName = u.FirstName,
+                LastName = u.LastName
+            });
 
             return result.ToList();
         }
@@ -62,7 +77,13 @@ namespace AuctionHouse.Domain.Services.Implementation
         /// <param name="userViewModel">The user view model.</param>
         public void CreateUser(UserViewModel userViewModel)
         {
-            var user = new User {Id = userViewModel.Id, Login = userViewModel.Login};
+            var user = new User
+            {
+                Id = userViewModel.Id,
+                Login = userViewModel.Login,
+                FirstName = userViewModel.FirstName,
+                LastName = userViewModel.LastName
+            };
             _userRepository.Create(user);
             _userRepository.SaveChanges();
         }
@@ -77,6 +98,8 @@ namespace AuctionHouse.Domain.Services.Implementation
             if (user != null)
             {
                 user.Login = userViewModel.Login;
+                user.FirstName = userViewModel.FirstName;
+                user.LastName = userViewModel.LastName;
                 _userRepository.Update(user);
                 _userRepository.SaveChanges();
             }

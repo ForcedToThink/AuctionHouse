@@ -37,7 +37,7 @@ namespace AuctionHouse.WebApi.Controllers
         /// <param name="login">The user login.</param>
         /// <returns></returns>
         [HttpGet("{login}")]
-        [ProducesResponseType(typeof(UserViewModel), 200)]
+        [ProducesResponseType(typeof(UserDetailsViewModel), 200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
         public IActionResult Get(string login)
@@ -52,7 +52,7 @@ namespace AuctionHouse.WebApi.Controllers
         /// <remarks>Gets all users.</remarks>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(typeof(List<UserViewModel>), 200)]
+        [ProducesResponseType(typeof(List<UserDetailsViewModel>), 200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
         public IActionResult Get()

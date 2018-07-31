@@ -12,14 +12,14 @@ namespace AuctionHouse.Domain.Services.Interfaces
         ///     Gets user by the login.
         /// </summary>
         /// <param name="login">The user login.</param>
-        /// <returns>User view model.</returns>
-        UserViewModel GetByLogin(string login);
+        /// <returns>User details view model.</returns>
+        UserDetailsViewModel GetByLogin(string login);
 
         /// <summary>
         ///     Gets all users.
         /// </summary>
-        /// <returns>The list of User view models.</returns>
-        List<UserViewModel> GetAllUsers();
+        /// <returns>The list of User details view models.</returns>
+        List<UserDetailsViewModel> GetAllUsers();
 
         /// <summary>
         ///     Creates new user.
