@@ -2,6 +2,8 @@
 using AuctionHouse.DataAccess.Repository.Interfaces;
 using AuctionHouse.Domain.Services.Implementation;
 using AuctionHouse.Domain.Services.Interfaces;
+using AuctionHouse.WebApi.Utils.Implementation;
+using AuctionHouse.WebApi.Utils.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AuctionHouse.WebApi.Configuraion
@@ -20,6 +22,9 @@ namespace AuctionHouse.WebApi.Configuraion
         {
             // register repositories
             services.AddScoped<IUserRepository, UserRepository>();
+
+            // register managers
+            services.AddScoped<ITokenManager, TokenManager>();
 
             // register services
             services.AddScoped<IUserService, UserService>();

@@ -1,9 +1,6 @@
-﻿namespace AuctionHouse.Model.DataModel
+﻿namespace AuctionHouse.Model.ViewModels
 {
-    /// <summary>
-    ///     The user entity.
-    /// </summary>
-    public class User : BaseEntity
+    public class RegisterViewModel
     {
         /// <summary>
         ///     The user login.
@@ -13,7 +10,7 @@
         /// <summary>
         ///     The user password.
         /// </summary>
-        public string PasswordHash { get; set; }
+        public string Password { get; set; }
 
         /// <summary>
         ///     The user first name.
@@ -21,7 +18,7 @@
         public string FirstName { get; set; }
 
         /// <summary>
-        ///  The user last name.
+        ///     The user last name.
         /// </summary>
         public string LastName { get; set; }
     }

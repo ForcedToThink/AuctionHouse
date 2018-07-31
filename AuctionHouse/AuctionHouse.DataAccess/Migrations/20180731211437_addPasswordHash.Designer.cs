@@ -3,14 +3,16 @@ using AuctionHouse.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AuctionHouse.DataAccess.Migrations
 {
     [DbContext(typeof(AuctionHouseDbContext))]
-    partial class AuctionHouseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180731211437_addPasswordHash")]
+    partial class addPasswordHash
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
