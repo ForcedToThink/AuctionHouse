@@ -43,6 +43,10 @@ namespace AuctionHouse.WebApi.Configuraion
             return app;
         }
 
+        /// <summary>
+        ///     Gets the xml documentation path.
+        /// </summary>
+        /// <returns></returns>
         private static string GetXmlCommentsPath()
         {
             var basePath = System.AppContext.BaseDirectory;
