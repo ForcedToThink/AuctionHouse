@@ -17,4 +17,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AuctionHouse.DataAccess\AuctionHouse.DataAccess.csproj" />
+    <ProjectReference Include="..\AuctionHouse.Domain\AuctionHouse.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

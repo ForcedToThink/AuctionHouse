@@ -25,6 +25,7 @@ namespace AuctionHouse.WebApi.Configuraion
                     Title = "Auction House API",
                     Description = "Auction House API"
                 });
+                c.OrderActionsBy(apiDesc => $"{apiDesc.GroupName}_{apiDesc.HttpMethod}");
                 c.IncludeXmlComments(GetXmlCommentsPath());
             });
 
