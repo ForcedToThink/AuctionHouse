@@ -53,6 +53,11 @@ namespace AuctionHouse.WebApi
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(builder =>
+                builder.WithOrigins("http://localhost:4200")
+                    .AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod());
             app.UseAuthentication();
             app.UseMvc();
             app.UseSwaggerConfiguration();
