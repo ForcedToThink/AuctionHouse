@@ -77,7 +77,7 @@ namespace AuctionHouse.Domain.Services.Implementation
         ///     Register new user.
         /// </summary>
         /// <param name="registerViewModel">The register user view model.</param>
-        public void RegisterUser(RegisterViewModel registerViewModel)
+        public UserDetailsViewModel RegisterUser(RegisterViewModel registerViewModel)
         {
             var user = _userRepository.GetByLogin(registerViewModel.Login);
             if (user != null)
@@ -95,6 +95,14 @@ namespace AuctionHouse.Domain.Services.Implementation
 
             _userRepository.Create(newUser);
             _userRepository.SaveChanges();
+
+            return new UserDetailsViewModel
+            {
+                Id = newUser.Id,
+                Login = newUser.Login,
+                FirstName = newUser.FirstName,
+                LastName = newUser.LastName
+            };
         }
 
         /// <summary>

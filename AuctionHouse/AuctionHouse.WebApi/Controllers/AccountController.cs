@@ -53,9 +53,9 @@ namespace AuctionHouse.WebApi.Controllers
         {
             try
             {
-                _userService.RegisterUser(model);
-                var token = _tokenManager.GetToken(model.Login);
-                return Ok(token);
+                var user =_userService.RegisterUser(model);
+                user.AuthenticationToken = _tokenManager.GetToken(model.Login);
+                return Ok(user);
             }
             catch (Exception e)
             {
@@ -79,11 +79,11 @@ namespace AuctionHouse.WebApi.Controllers
             var user = _userService.GetByLoginAndPassword(model.Login, model.Password);
             if (user != null)
             {
-                var token = _tokenManager.GetToken(user.Login);
-                return Ok(token);
+                user.AuthenticationToken = _tokenManager.GetToken(user.Login);
+                return Ok(user);
             }
 
-            return BadRequest();
+            return BadRequest("Invalid username or password.");
         }
         #endregion
     }

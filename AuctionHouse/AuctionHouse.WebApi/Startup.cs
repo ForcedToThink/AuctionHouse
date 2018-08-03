@@ -1,4 +1,6 @@
 ﻿using AuctionHouse.WebApi.Configuraion;
+using AuctionHouse.WebApi.Security;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -37,7 +39,12 @@ namespace AuctionHouse.WebApi
             services.AddSwagger();
             services.AddDatabase(Configuration);
             services.AddDependencies();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc(options =>
+                    {
+                        options.Filters.Add(new CustomAuthorizeFilter(new AuthorizationPolicyBuilder()
+                            .RequireAuthenticatedUser().Build()));
+                    })
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         /// <summary>

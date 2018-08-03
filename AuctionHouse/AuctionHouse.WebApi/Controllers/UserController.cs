@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using AuctionHouse.Domain.Services.Interfaces;
 using AuctionHouse.Model.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Primitives;
 
 namespace AuctionHouse.WebApi.Controllers
 {
@@ -74,6 +76,14 @@ namespace AuctionHouse.WebApi.Controllers
         public IActionResult GetCurrent()
         {
             var user = _userService.GetByLogin(User.Identity.Name);
+            Request.Headers.TryGetValue("Authorization", out var values);
+            var token = values.First();
+            if (token.StartsWith("Bearer"))
+            {
+                token = token.Substring(7);
+            }
+
+            user.AuthenticationToken = token;
             return Ok(user);
         }
         #endregion

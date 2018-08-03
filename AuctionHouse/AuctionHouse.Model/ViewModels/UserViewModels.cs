@@ -55,5 +55,10 @@
         ///     The user full name.
         /// </summary>
         public string FullName => $"{FirstName} {LastName}";
+
+        /// <summary>
+        ///     The authentication token.
+        /// </summary>
+        public string AuthenticationToken { get; set; }
     }
 }

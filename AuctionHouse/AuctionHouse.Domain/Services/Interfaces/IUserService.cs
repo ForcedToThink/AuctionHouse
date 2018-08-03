@@ -25,7 +25,7 @@ namespace AuctionHouse.Domain.Services.Interfaces
         ///     Register new user.
         /// </summary>
         /// <param name="registerViewModel">The register user view model.</param>
-        void RegisterUser(RegisterViewModel registerViewModel);
+        UserDetailsViewModel RegisterUser(RegisterViewModel registerViewModel);
 
         /// <summary>
         ///     Gets the user by the login and password.
